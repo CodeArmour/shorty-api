@@ -11,7 +11,8 @@ import { Router } from "express";
 /**
  * Routes
  */
-import authRoute from '@/routes/v1/auth'
+import authRoute from '@/routes/v1/auth';
+import userRoute from '@/routes/v1/user'
 
 /**
  * Initial express router
@@ -29,5 +30,6 @@ router.get('/', (req, res) => {
 
 // Auth routes
 router.use('/auth', authRoute);
+router.use('/users', userRoute)
 
 export default router;

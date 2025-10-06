@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "ES6",
-        "module": "commonJS",
+        "target": "ES2020",  // Changed from ES6
+        "module": "commonjs",  // Keep commonjs (lowercase is standard)
         "rootDir": "src",
         "baseUrl": "./",
         "paths": {

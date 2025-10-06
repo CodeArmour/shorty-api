@@ -45,6 +45,16 @@ const generateRefreshToken = (payload: TokenPayload) => {
 };
 
 /**
+ * Generate a JWT token for reset password
+ */
+const generatePasswordResetToken = (payload: ResetLinkPayload) =>{
+    const resetToken = jwt.sign(payload,config.JWT_PASSWORD_RESET_SECRET,{
+        expiresIn: '1h',
+    });
+    return resetToken;
+}
+
+/**
  * Verify accessToken
  */
 const verifyAccessToken = (accessToken: string): string | JwtPayload => {
@@ -59,6 +69,20 @@ const verifyRefreshToken = (refreshToken: string): string | JwtPayload => {
     return jwt.verify(refreshToken, config.JWT_REFRESH_SECRET);
 };
 
+/**
+ * Verify password reset token
+ */
+const verifyPasswordResetToken = (resetToken: string): string | JwtPayload => {
+    return jwt.verify(resetToken, config.JWT_PASSWORD_RESET_SECRET);
+};
 
 
-export { generateAccessToken, generateRefreshToken, verifyAccessToken, verifyRefreshToken };
+
+export { 
+    generateAccessToken, 
+    generateRefreshToken, 
+    generatePasswordResetToken,
+    verifyAccessToken, 
+    verifyRefreshToken,
+    verifyPasswordResetToken,
+};

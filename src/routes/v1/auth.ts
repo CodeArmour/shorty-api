@@ -20,6 +20,8 @@ import register from '@/controllers/auth/register';
 import login from '@/controllers/auth/login';
 import logout from '@/controllers/auth/logout';
 import refreshToken from '@/controllers/auth/refresh_token';
+import forgotPassword from '@/controllers/auth/forgot_password';
+import resetPassword from '@/controllers/auth/reset_password';
 
 /**
  * Middlewares
@@ -103,10 +105,35 @@ refreshToken,
 );
 
 router.post(
+  '/forget-password',
+  expressRateLimit('basic'),
+  body('email')
+  .trim()
+  .notEmpty()
+  .withMessage('Email is required')
+  .isEmail()
+  .withMessage('Invalid email address'),
+  validationError,
+  forgotPassword
+);
+
+router.post(
   '/forgot-password',
   expressRateLimit('basic'),
   validationError,
   
 
+);
+
+router.post(
+  '/reset-password',
+  expressRateLimit('passReset'),
+  body('password')
+  .notEmpty()
+  .withMessage('Password is required')
+  .isLength({min: 8})
+  .withMessage('Password must be at least 8 chatcters '),
+  validationError,
+  resetPassword,
 );
 export default router;
